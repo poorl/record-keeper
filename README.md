@@ -1,8 +1,8 @@
 # record-keeper
 Record keeper with QR code
 
-./mvnw -DskipTests appengine:run
-./mvnw -DskipTests appengine:deploy
+mvn -DskipTests appengine:run
+mvn -DskipTests appengine:deploy
 
 git config user.name "sulacher"
 git config user.email "sulacher@gmail.com"
