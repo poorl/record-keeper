@@ -87,8 +87,10 @@ public class RecordApi implements RecordApiDelegate {
 	@Override
 	public ResponseEntity<RecordDetails> getRecord(String id) {
 		int i = Integer.parseInt(id);
-		if (i >= RecordStore.recordList.size()) {
+		if (i >= RecordStore.recordList.size() || i <= 0) {
 			i = 0;
+		} else {
+			i -= 1;
 		}
 		return new ResponseEntity<RecordDetails>(RecordStore.recordList.get(i), HttpStatus.OK);
 	}
