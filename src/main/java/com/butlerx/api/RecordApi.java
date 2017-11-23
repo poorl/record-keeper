@@ -4,8 +4,6 @@ import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import javax.servlet.annotation.WebServlet;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -42,7 +40,6 @@ public class RecordApi implements RecordApiDelegate {
 	public ResponseEntity<RecordDetails> createRecord(RecordRequest body) {
 		String nowString = OffsetDateTime.now().format(FORMATTER);
 		RecordDetails details = new RecordDetails();
-		//KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
 		
 		details.setAgreementDate(body.getAgreementDate());
 		details.setBorrower(body.getBorrower());
@@ -59,59 +56,7 @@ public class RecordApi implements RecordApiDelegate {
 		details.setRoles(body.getRoles());
 		details.setUpdatePrepareBy("Record Creator");
 		details.setUpdatePrepareDate(nowString);
-		/*
-		try {
-			this.jdbcTemplate.update(new PreparedStatementCreator() {
-				public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
-					PreparedStatement ps = conn.prepareStatement(SQL_CREATE_RECORD, new String[] {"id"});
-					ps.setString(1, details.getBorrower());
-					ps.setString(2, details.getAgreementDate());
-					ps.setString(3, details.getClientDescription());
-					ps.setString(4, details.getRoles());
-					ps.setString(5, details.getLegalCounsel());
-					ps.setString(6, details.getDocDescription());
-					ps.setString(7, details.getNumCopies());
-					ps.setString(8, details.getReceiveDate());
-					ps.setString(9, details.getLocation());
-					ps.setString(10, details.getOriginalCTC());
-					ps.setString(11, details.getRemarks());
-					ps.setString(12, details.getUpdatePrepareBy());
-					ps.setString(13, details.getUpdatePrepareDate());
-					ps.setString(14, details.getLastCheckedBy());
-					ps.setString(15, details.getLastCheckedDate());
-					return ps;
-				}
-			}, generatedKeyHolder);
-		} catch (DuplicateKeyException e) {
-			System.out.println("Duplicated key");
-			System.out.println(e);
-			throw new RuntimeException(e);
-		}*/
-		/*
-		try (PreparedStatement stateCreateRecord = conn.prepareStatement(SQL_CREATE_RECORD)) {
-			stateCreateRecord.setString(1, details.getBorrower());
-			stateCreateRecord.setString(2, details.getAgreementDate());
-			stateCreateRecord.setString(3, details.getClientDescription());
-			stateCreateRecord.setString(4, details.getRoles());
-			stateCreateRecord.setString(5, details.getLegalCounsel());
-			stateCreateRecord.setString(6, details.getDocDescription());
-			stateCreateRecord.setString(7, details.getNumCopies());
-			stateCreateRecord.setString(8, details.getReceiveDate());
-			stateCreateRecord.setString(9, details.getLocation());
-			stateCreateRecord.setString(10, details.getOriginalCTC());
-			stateCreateRecord.setString(11, details.getRemarks());
-			stateCreateRecord.setString(12, details.getUpdatePrepareBy());
-			stateCreateRecord.setString(13, details.getUpdatePrepareDate());
-			stateCreateRecord.setString(14, details.getLastCheckedBy());
-			stateCreateRecord.setString(15, details.getLastCheckedDate());
-			stateCreateRecord.executeUpdate();
-			String key = stateCreateRecord.getGeneratedKeys().getString(0);
-			details.setId(key);			
-		} catch (SQLException exception) {
-			System.out.println("SQL error");
-			System.out.println(exception);
-		}*/
-		//details.setId(generatedKeyHolder.getKey().toString());
+		
 		RecordStore.recordList.add(details);
 		details.setId(Integer.toString(RecordStore.recordList.size()));
 		return new ResponseEntity<RecordDetails>(details, HttpStatus.OK);
