@@ -54,7 +54,7 @@
         <div class="col-xs-12">
 
           <div id="pqtPositionBox" class="box">
-          	<button class="btn btn-primary" onClick="search()" type="button" style="margin-left: 15px; margin-top: 15px">New Document Arrival</button>
+          	<button class="btn btn-primary" onClick="create()" type="button" style="margin-left: 15px; margin-top: 15px">New Document Arrival</button>
           	
           	<div class="row">
 		        <div class="col-xs-12">
@@ -166,6 +166,10 @@ $(document).ready(function() {
   search();
 });
 
+function create() {
+  windows.location = "/create-record.html";
+}
+
 function addRowPositionItem(item) {
 	var t = $('#position_list').DataTable();
 
@@ -193,6 +197,7 @@ function addRowPositionItem(item) {
   
     $("#position_list").DataTable();
   });
+  
   
 </script>
 </body>
