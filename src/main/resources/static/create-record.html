@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Create record</title>
+  <title>CTLA Singapore - Record Keeper - Create record</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -139,16 +139,21 @@
 
     <div id="qr-content">
       <div id="qr-code" class="wrapper" style="visibility:hidden">
+        <div id="create-text" style="display:inline">
+          <span class="form-group">Record Created. Document ID is </span>
+          <span class="form-group" id="docId"></span>
+        </div>
+        <br>
         <img id="qr-code-url" src="" />
-        <span onClick="this.innerText='';window.print();this.innerText='Print'" style="cursor:pointer; text-align:center">Print</span>
+        <br>
+        <div style="margin:0px 0px 0px 50px">
+          <button type="button" class="btn btn-primary" onclick="printQR(this)">Print</button>
+        </div>
       </div>
     </div>
 <script>
 
   var loadingOverlay1 = $('<div class="overlay"><div class="fa fa-refresh fa-spin"></div></div>');
-
-  function submitRecord() {
-    $('#qr-content').append(loadingOverlay1);
 
     var idList = [
       "borrower",
@@ -164,6 +169,26 @@
       "remarks"
     ];
 
+  function printQR(self) {
+    self.style.display='none';
+    document.getElementById("create-text").style.display='none';
+    window.print();
+    self.style.display='inline'
+    document.getElementById("create-text").style.display='inline';
+  }
+
+  function clearRecord() {
+    for (var i=0; i < idList.length; i++) {
+      document.getElementById(idList[i]).value = "";
+    }
+  }
+
+  function submitRecord() {
+    $('#qr-content').append(loadingOverlay1);
+    $('#create-content').attr("style","display:none;visibility:hidden");
+
+
+
     var jsonDataString = {};
 
     for (var i=0; i < idList.length; i++) {
@@ -173,15 +198,15 @@
     $.ajax({
       //type: 'POST',
       data: JSON.stringify(jsonDataString),
-      // url: "data url",
+      //url: "/record",
       url: "./data/doc-record.json",
       success: function (data) {
         console.log("SUCCESS: ", data);
 
         $('#qr-code-url').attr("src", "https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl=https://composed-task-186614.appspot.com/load-record.html?id="+data.id);
 
-        $('#create-content').attr("style","display:none;visibility:hidden");
         $('#qr-code').attr("style","visibility:show");
+        $('#docId').html("<b>"+data.id+"</b>");
 
         $('#qr-content').find(loadingOverlay1).remove();
 
