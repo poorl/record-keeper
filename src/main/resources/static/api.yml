@@ -10,7 +10,7 @@ tags:
 - name: "ButlerX"
   description: "API for ButlerX"
 schemes:
-- "http"
+- "https"
 paths:
   /record:
     post:
