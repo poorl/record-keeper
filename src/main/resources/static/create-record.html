@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Generate QR Label</title>
+  <title>Create record</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -49,70 +49,141 @@
     <div id="create-content" class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="aobPointsModalLabel">Document Record</h4>
+                <h4 class="modal-title" id="aobPointsModalLabel">Create Record</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Staff ID<span style="color: red;font-size: 10px;margin-left: 10px;">* required</span></label>
+                    <label>Borrower</label>
                     <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                        <input type="text" id="staffId2" class="form-control" placeholder="Staff ID"
-                               data-inputmask="'mask':'99999999'" data-mask>
+                        <span class="input-group-addon"><i class="fa fa-user-md"></i></span>
+                        <input type="text" id="borrower" class="form-control" value="" placeholder="Borrower Name">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Staff LN<span style="color: red;font-size: 10px;margin-left: 10px;">* required</span></label>
+                    <label>Agreement Date</label>
                     <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                        <input type="text" id="staffName2" class="form-control" placeholder="e.g. Peter H H CHAN">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <input type="text" id="agreementDate" class="form-control" value="" placeholder="DD/MM/YYYY">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>AOB Points<span style="color: red;font-size: 10px;margin-left: 10px;">* required (10-9999)</span></label>
+                    <label>Client Description</label>
                     <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-dollar" style="width: 11px;"></i></span>
-                        <input type="text" id="aobPoints" class="form-control" placeholder="AOB Points"
-                               data-inputmask="'mask':'9999'" data-mask>
+                        <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                        <input type="text" id="clientDescription" class="form-control" value="" placeholder="Client Description">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>CLTA Role(s)</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-rub"></i></span>
+                        <input type="text" id="roles" class="form-control" value="" placeholder="role">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Legal counsel</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-bullseye"></i></span>
+                        <input type="text" id="legalCounsel" class="form-control" value="" placeholder="Legal counsel">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Description of documents</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-inbox"></i></span>
+                        <input type="text" id="docDescription" class="form-control" value="" placeholder="Description of documents">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Original / CTC</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-headphones"></i></span>
+                        <input type="text" id="originalCTC" class="form-control" value="" placeholder="Original / CTC">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>No. of copies</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-copy"></i></span>
+                        <input type="text" id="numCopies" class="form-control" value="" placeholder="No. of copies">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Doc Receipt Date</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <input type="text" id="receiveDate" class="form-control" value="" placeholder="Doc Receipt Date">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-map"></i></span>
+                        <input type="text" id="location" class="form-control" value="" placeholder="location">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Remarks</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                        <input type="text" id="remarks" class="form-control" value="" placeholder="Remarks">
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="submitAobPoints()">Submit</button>
+                <button type="button" class="btn btn-default" onclick="clearRecord()">Clear</button>
+                <button type="button" class="btn btn-primary" onclick="submitRecord()">Submit</button>
             </div>
         </div>
     </div>
 
-    <div id="content">
-      <div id="qrCode" class="wrapper" style="visibility:hidden">
-        <img id="qrCodeUrl" src="" />
+    <div id="qr-content">
+      <div id="qr-code" class="wrapper" style="visibility:hidden">
+        <img id="qr-code-url" src="" />
         <span onClick="this.innerText='';window.print();this.innerText='Print'" style="cursor:pointer; text-align:center">Print</span>
       </div>
     </div>
 <script>
-  $(document).ready(function() {
-    loadQRCode();
-  });
 
   var loadingOverlay1 = $('<div class="overlay"><div class="fa fa-refresh fa-spin"></div></div>');
 
+  function submitRecord() {
+    $('#qr-content').append(loadingOverlay1);
 
-  function loadQRCode() {
-    $('#content').append(loadingOverlay1);
+    var idList = [
+      "borrower",
+      "agreementDate",
+      "clientDescription",
+      "roles",
+      "legalCounsel",
+      "docDescription",
+      "numCopies",
+      "receiveDate",
+      "location",
+      "originalCTC",
+      "remarks"
+    ];
+
+    var jsonDataString = {};
+
+    for (var i=0; i < idList.length; i++) {
+      jsonDataString[idList[i]] = document.getElementById(idList[i]).value;
+    }
 
     $.ajax({
+      //type: 'POST',
+      data: JSON.stringify(jsonDataString),
       // url: "data url",
-      url: "./data/qr.code.id.json",
+      url: "./data/doc-record.json",
       success: function (data) {
         console.log("SUCCESS: ", data);
 
-        $('#qrCodeUrl').attr("src", "https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl=https://composed-task-186614.appspot.com/load-record.html?id="+data.id);
+        $('#qr-code-url').attr("src", "https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl=https://composed-task-186614.appspot.com/load-record.html?id="+data.id);
 
-        $('#qrCode').attr("style","visibility:show");
+        $('#create-content').attr("style","display:none;visibility:hidden");
+        $('#qr-code').attr("style","visibility:show");
 
-        $('#content').find(loadingOverlay1).remove();
+        $('#qr-content').find(loadingOverlay1).remove();
 
       }
     });
