@@ -19,7 +19,7 @@ public class RecordStore {
         recordDetails1.setAgreementDate("TBC");
         recordDetails1.setBorrower("HL Global Enterprises Limited");
         recordDetails1.setClientDescription("Escrow");
-        recordDetails1.setDocDescription("Share Certificate No. 8 of LKNII (12,233,000 Ordinary Shares)");
+        recordDetails1.setDocDescription("Share Transfer form dated 22 November 2017 (Original)");
         recordDetails1.setId("1");
         recordDetails1.setLastCheckedBy("Satish Srivastava");
         recordDetails1.setLastCheckedDate("17/11/2017");
@@ -37,7 +37,8 @@ public class RecordStore {
         recordDetails2.setAgreementDate("TBC");
         recordDetails2.setBorrower("HL Global Enterprises Limited");
         recordDetails2.setClientDescription("Escrow");
-        recordDetails2.setDocDescription("Share Certificate No. 8 of LKNII (12,233,000 Ordinary Shares)");
+        recordDetails2
+            .setDocDescription("Share Certificate No. 3 of LKN Investment International Pte Ltd (\"LKNII\") (2 Ordinary Shares)");
         recordDetails2.setId("2");
         recordDetails2.setLastCheckedBy("Satish Srivastava");
         recordDetails2.setLastCheckedDate("17/11/2017");
@@ -55,7 +56,7 @@ public class RecordStore {
         recordDetails3.setAgreementDate("TBC");
         recordDetails3.setBorrower("HL Global Enterprises Limited");
         recordDetails3.setClientDescription("Escrow");
-        recordDetails3.setDocDescription("Share Certificate No. 8 of LKNII (12,233,000 Ordinary Shares)");
+        recordDetails3.setDocDescription("Share Certificate No. 4 of LKNII (500,000 Ordinary Shares)");
         recordDetails3.setId("3");
         recordDetails3.setLastCheckedBy("Satish Srivastava");
         recordDetails3.setLastCheckedDate("17/11/2017");
@@ -73,7 +74,7 @@ public class RecordStore {
         recordDetails4.setAgreementDate("TBC");
         recordDetails4.setBorrower("HL Global Enterprises Limited");
         recordDetails4.setClientDescription("Escrow");
-        recordDetails4.setDocDescription("Share Certificate No. 8 of LKNII (12,233,000 Ordinary Shares)");
+        recordDetails4.setDocDescription("Share Certificate No. 5 of LKNII (499,998 Ordinary Shares)");
         recordDetails4.setId("4");
         recordDetails4.setLastCheckedBy("Satish Srivastava");
         recordDetails4.setLastCheckedDate("17/11/2017");
