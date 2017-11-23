@@ -27,9 +27,10 @@ public class RecordApi implements RecordApiDelegate {
 	private static final String SQL_CREATE_RECORD = "INSERT INTO records(borrower, agreementDate, clientDescription, "
 			+ "roles, legalCounsel, docDescription, numCopies, receiveDate, location, originalCTC, remarks, updatePrepareBy, "
 			+ "updatePrepareDate, lastCheckedBy, lastCheckedDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	
+	/*
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	*/
 	/* (non-Javadoc)
 	 * @see com.butlerx.admin.RecordApiDelegate#confirmRecord(java.lang.String)
 	 */
