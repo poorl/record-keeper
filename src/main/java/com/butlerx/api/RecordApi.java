@@ -128,6 +128,7 @@ public class RecordApi implements RecordApiDelegate {
 	@Override
 	public ResponseEntity<ResponseMessage> deleteRecord(String id) {
 		// TODO Auto-generated method stub
+		RecordStore.resetRecord();
 		return RecordApiDelegate.super.deleteRecord(id);
 	}
 
@@ -145,8 +146,11 @@ public class RecordApi implements RecordApiDelegate {
 	 */
 	@Override
 	public ResponseEntity<RecordDetails> getRecord(String id) {
-		// TODO Auto-generated method stub
-		return RecordApiDelegate.super.getRecord(id);
+		int i = Integer.parseInt(id);
+		if (i >= RecordStore.recordList.size()) {
+			i = 0;
+		}
+		return new ResponseEntity<RecordDetails>(RecordStore.recordList.get(i), HttpStatus.OK);
 	}
 
 	/* (non-Javadoc)
@@ -154,8 +158,7 @@ public class RecordApi implements RecordApiDelegate {
 	 */
 	@Override
 	public ResponseEntity<List<RecordDetails>> listRecord() {
-		// TODO Auto-generated method stub
-		return RecordApiDelegate.super.listRecord();
+		return new ResponseEntity<List<RecordDetails>>(RecordStore.recordList, HttpStatus.OK);
 	}
 
 	/* (non-Javadoc)
