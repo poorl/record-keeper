@@ -146,7 +146,7 @@ public class RecordApi implements RecordApiDelegate {
 	
 	static {
 	    try {
-	      String url = "jdbc:mysql://google/hackathon?cloudSqlInstance=composed-task-186614:asia-east1:hackathon-cloudsql&amp;socketFactory=com.google.cloud.sql.mysql.SocketFactory&amp;user=hackathon&amp;password=Abcd123$&amp;useSSL=false";
+	      String url = "jdbc:mysql://google/hackathon?cloudSqlInstance=composed-task-186614:asia-east1:hackathon-cloudsql&socketFactory=com.google.cloud.sql.mysql.SocketFactory&user=hackathon&password=Abcd123$&useSSL=false";
 
 	      System.out.println("connecting to: " + url);
 	      try {
