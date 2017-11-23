@@ -39,42 +39,42 @@
                     <label>Borrower</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user-md"></i></span>
-                        <input type="text" id="borrower" class="form-control" value="HL Global Enterprises Limited">
+                        <input type="text" id="borrower" class="form-control" value="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Agreement Date</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        <input type="text" id="agreementDate" class="form-control" value="TBC">
+                        <input type="text" id="agreementDate" class="form-control" value="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Client Description</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-info"></i></span>
-                        <input type="text" id="clientDescription" class="form-control" value="Escrow">
+                        <input type="text" id="clientDescription" class="form-control" value="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label>CLTA Role(s)</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-rub"></i></span>
-                        <input type="text" id="roles" class="form-control" value="Escrow Agent">
+                        <input type="text" id="roles" class="form-control" value="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Legal counsel</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-bullseye"></i></span>
-                        <input type="text" id="legalCounsel" class="form-control" value="TBC">
+                        <input type="text" id="legalCounsel" class="form-control" value="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Description of documents</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-inbox"></i></span>
-                        <input type="text" id="docDescription" class="form-control" value="Share Transfer form dated 22 Nov 2017 (Original)">
+                        <input type="text" id="docDescription" class="form-control" value="">
                     </div>
                 </div>
                 <div class="form-group">
@@ -88,21 +88,21 @@
                     <label>No. of copies</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-copy"></i></span>
-                        <input type="text" id="numCopies" class="form-control" value="1">
+                        <input type="text" id="numCopies" class="form-control" value="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Doc Receipt Date</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        <input type="text" id="receiveDate" class="form-control" value="17/11/2017">
+                        <input type="text" id="receiveDate" class="form-control" value="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Location</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map"></i></span>
-                        <input type="text" id="location" class="form-control" value="A2">
+                        <input type="text" id="location" class="form-control" value="">
                     </div>
                 </div>
                 <div class="form-group">
@@ -116,28 +116,28 @@
                     <label>Updated/prepared by</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                        <input type="text" id="updatePrepareBy" class="form-control" value="Muneet Mand">
+                        <input type="text" id="updatePrepareBy" class="form-control" value="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Updated/prepared date</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        <input type="text" id="updatePrepareDate" class="form-control" value="17/11/2017">
+                        <input type="text" id="updatePrepareDate" class="form-control" value="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Checked by</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                        <input type="text" id="lastCheckedBy" class="form-control" value="Satish Srivastava">
+                        <input type="text" id="lastCheckedBy" class="form-control" value="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Date checked</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        <input type="text" id="lastCheckedDate" class="form-control" value="17/11/2017">
+                        <input type="text" id="lastCheckedDate" class="form-control" value="">
                     </div>
                 </div>
             </div>
@@ -189,17 +189,40 @@
 
   var loadingOverlay1 = $('<div class="overlay"><div class="fa fa-refresh fa-spin"></div></div>');
 
+  var idList = [
+    "borrower",
+    "agreementDate",
+    "clientDescription",
+    "roles",
+    "legalCounsel",
+    "docDescription",
+    "numCopies",
+    "receiveDate",
+    "location",
+    "originalCTC",
+    "remarks",
+    "updatePrepareBy",
+    "updatePrepareDate",
+    "lastCheckedBy",
+    "lastCheckedDate"
+  ];
+
 
   function loadRecord() {
     $('#content').append(loadingOverlay1);
 
     //alert("Loading record id = " + getParameterByName("id"));
+    
 
     $.ajax({
-      // url: "data url",
-      url: "./data/load-record.json",
+      //url: "/record/"+getParameterByName("id"),
+      url: "./data/doc-record.json",
       success: function (data) {
         console.log("SUCCESS: ", data);
+
+        for (var i=0; i < idList.length; i++) {
+          document.getElementById(idList[i]).value = data[idList[i]];
+        }
 
 
         $('#content').find(loadingOverlay1).remove();
