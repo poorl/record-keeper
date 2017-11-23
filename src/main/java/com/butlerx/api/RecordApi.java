@@ -1,8 +1,5 @@
 package com.butlerx.api;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -10,15 +7,12 @@ import java.util.List;
 import javax.servlet.annotation.WebServlet;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
+import com.butlerx.RecordStore;
 import com.butlerx.admin.RecordApiDelegate;
 import com.butlerx.admin.model.RecordDetails;
 import com.butlerx.admin.model.RecordRequest;
@@ -27,7 +21,7 @@ import com.butlerx.admin.model.ResponseMessage;
 @Component
 @WebServlet(name = "cloudsql", value = "")
 public class RecordApi implements RecordApiDelegate {
-
+	private static final RecordStore store = new RecordStore();
 	private static final String DEFAULT_DATE_FORMAT = "dd MMM yyyy hh:mm a";
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT);
 	private static final String SQL_CREATE_RECORD = "INSERT INTO records(borrower, agreementDate, clientDescription, "
@@ -52,7 +46,7 @@ public class RecordApi implements RecordApiDelegate {
 	public ResponseEntity<RecordDetails> createRecord(RecordRequest body) {
 		String nowString = OffsetDateTime.now().format(FORMATTER);
 		RecordDetails details = new RecordDetails();
-		KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+		//KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
 		
 		details.setAgreementDate(body.getAgreementDate());
 		details.setBorrower(body.getBorrower());
@@ -69,6 +63,7 @@ public class RecordApi implements RecordApiDelegate {
 		details.setRoles(body.getRoles());
 		details.setUpdatePrepareBy("Record Creator");
 		details.setUpdatePrepareDate(nowString);
+		/*
 		try {
 			this.jdbcTemplate.update(new PreparedStatementCreator() {
 				public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
@@ -95,7 +90,7 @@ public class RecordApi implements RecordApiDelegate {
 			System.out.println("Duplicated key");
 			System.out.println(e);
 			throw new RuntimeException(e);
-		}
+		}*/
 		/*
 		try (PreparedStatement stateCreateRecord = conn.prepareStatement(SQL_CREATE_RECORD)) {
 			stateCreateRecord.setString(1, details.getBorrower());
@@ -120,7 +115,9 @@ public class RecordApi implements RecordApiDelegate {
 			System.out.println("SQL error");
 			System.out.println(exception);
 		}*/
-		details.setId(generatedKeyHolder.getKey().toString());
+		//details.setId(generatedKeyHolder.getKey().toString());
+		RecordStore.recordList.add(details);
+		details.setId(Integer.toString(RecordStore.recordList.size()));
 		return new ResponseEntity<RecordDetails>(details, HttpStatus.OK);
 	}
 
