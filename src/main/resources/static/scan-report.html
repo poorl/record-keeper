@@ -58,7 +58,30 @@
           	<div class="row">
 		        <div class="col-xs-12">
 		          <h2 class="page-header">
-		            <span class="badge bg-red" style="margin-left: 10px"><div id="missCnt"></div></span><font color="red"> Missing Documents</font>
+		            <i class="fa fa-globe" style="margin-left: 10px; margin-top: 15px"></i> Scanning Result
+		          </h2>
+		        </div>
+		        <!-- /.col -->
+		      </div>
+
+			
+            
+            <div class="row">
+		        <div class="col-md-6">
+		          <!-- DONUT CHART -->
+		            <div class="box-body">
+		              <canvas id="pieChart" style="height:10px"></canvas>
+		            </div>
+		        </div>
+		    </div>
+            
+            
+          <div id="pqtPositionBox" class="box">
+
+          	<div class="row">
+		        <div class="col-xs-12">
+		          <h2 class="page-header">
+		            <span class="badge bg-red" style="margin-left: 10px">2</span><font color="red"> Missing Documents</font>
 		          </h2>
 		        </div>
 		        <!-- /.col -->
@@ -92,42 +115,9 @@
               </table>
             </div>
             
-            <div class="row">
-		        <div class="col-xs-12">
-		          <h2 class="page-header">
-		            <span class="badge bg-blue" style="margin-left: 10px"><div id="matchCnt"></div></span><font color="blue"> Matched Documents</font>
-		          </h2>
-		        </div>
-		        <!-- /.col -->
-		      </div>
-
-			
-			<div class="box-body">
-              <table id="match_list" class="table table-bordered table-striped table-hover">
-                <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Borrower</th>
-                  <th>Agreement date</th>
-                  <th>Client description</th>
-                  <th>Roles</th>
-                  <th>Legal counsel</th>
-                  <th>Description of documents</th>
-                  <th>Original / CTC</th>
-                  <th>No. of copies</th>
-                  <th>Doc receipt date</th>
-                  <th>Location</th>
-                  <th>Remarks</th>
-                  <th>Updated / prepared by</th>
-                  <th>Prepare / update date</th>
-                  <th>Checked by</th>
-                  <th>Date checked</th>
-                </tr>
-                </thead>
-                <tbody>                
-                </tbody>
-              </table>
-            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
             
             <!-- /.box-body -->
           </div>
@@ -155,6 +145,8 @@
 <script src="./plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="./bootstrap/js/bootstrap.min.js"></script>
+<!-- ChartJS 1.0.1 -->
+<script src="./plugins/chartjs/Chart.min.js"></script>
 <!-- DataTables -->
 <script src="./plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="./plugins/datatables/dataTables.bootstrap.min.js"></script>
@@ -166,99 +158,157 @@
 <script src="./dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="./dist/js/demo.js"></script>
-<!-- bootstrap datepicker -->
-<script src="./plugins/datepicker/bootstrap-datepicker.js"></script>
 <!-- page script -->
 <script>
+  $(function () {
+    /* ChartJS
+     * -------
+     * Here we will create a few charts using ChartJS
+     */
 
-var loadingOverlay = $('<div class="overlay"><div class="fa fa-refresh fa-spin"></div></div>');
+    //-------------
+    //- PIE CHART -
+    //-------------
+    // Get context with jQuery - using jQuery's .get() method.
+    var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+    var pieChart       = new Chart(pieChartCanvas)
+    var PieData        = [
+      {
+        value    : 2,
+        color    : '#f56954',
+        highlight: '#f56954',
+        label    : 'Missing'
+      },
+      {
+        value    : 3,
+        color    : '#00a65a',
+        highlight: '#00a65a',
+        label    : 'Matched'
+      }
+    ]
+    var pieOptions     = {
+      //Boolean - Whether we should show a stroke on each segment
+      segmentShowStroke    : true,
+      //String - The colour of each segment stroke
+      segmentStrokeColor   : '#fff',
+      //Number - The width of each segment stroke
+      segmentStrokeWidth   : 2,
+      //Number - The percentage of the chart that we cut out of the middle
+      percentageInnerCutout: 50, // This is 0 for Pie charts
+      //Number - Amount of animation steps
+      animationSteps       : 100,
+      //String - Animation easing effect
+      animationEasing      : 'easeOutBounce',
+      //Boolean - Whether we animate the rotation of the Doughnut
+      animateRotate        : true,
+      //Boolean - Whether we animate scaling the Doughnut from the centre
+      animateScale         : false,
+      //Boolean - whether to make the chart responsive to window resizing
+      responsive           : true,
+      // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+      maintainAspectRatio  : true,
+      //String - A legend template
+      legendTemplate       : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
+    }
+    //Create pie or douhnut chart
+    // You can switch between pie and douhnut using the method below.
+    pieChart.Doughnut(PieData, pieOptions)
+
+  })
+  
+  var loadingOverlay = $('<div class="overlay"><div class="fa fa-refresh fa-spin"></div></div>');
 
 function search() {
 
   $('#pqtPositionBox').append(loadingOverlay);
-
-  $.ajax({
-      //url: "http://localhost:8180/PQT/position",
-      //url: "https://pqt-api-service.cf.wgdc-drn-01.cloud.uk.hsbc/PQT/position",
-      url: "./data/doc-record-list.json",
-  	  success: function (data) {
-          console.log("SUCCESS: ", data);
-          
-          $('#position_list').DataTable().clear().draw();
-          $('#missCnt').text(data.length);
-          
-          $.each(data, function(i, item) {
-            addRowPositionItem(item, $('#position_list').DataTable());
-          });
-          $('#pqtPositionBox').find(loadingOverlay).remove();
-          
-      },
-      error: function (e) {
-          $('#pqtPositionBox').find(loadingOverlay).remove();
-          console.log("ERROR: ", e);
-      }
-  });
+  
+  $('#position_list').DataTable().clear().draw();
+  
+  addRowPositionItem();
+  $('#pqtPositionBox').find(loadingOverlay).remove();
 }
 
-function searchMatch() {
-
-	  $('#pqtPositionBox').append(loadingOverlay);
-
-	  $.ajax({
-	      //url: "http://localhost:8180/PQT/position",
-	      //url: "https://pqt-api-service.cf.wgdc-drn-01.cloud.uk.hsbc/PQT/position",
-	      url: "./data/doc-record-list.json",
-	  	  success: function (data) {
-	          console.log("SUCCESS: ", data);
-	          
-	          $('#match_list').DataTable().clear().draw();
-	          $('#matchCnt').text(data.length);
-	          
-	          $.each(data, function(i, item) {
-	            addRowPositionItem(item, $('#match_list').DataTable());
-	          });
-	          $('#pqtPositionBox').find(loadingOverlay).remove();
-	          
-	      },
-	      error: function (e) {
-	          $('#pqtPositionBox').find(loadingOverlay).remove();
-	          console.log("ERROR: ", e);
-	      }
-	  });
-	}
-
 $(document).ready(function() {
-  searchMatch();
   search();
 });
 
-function addRowPositionItem(item, t) {
+function addRowPositionItem() {
+	var t = $('#position_list').DataTable();
+	
+	t.row.add( [
+         //item.id,
+         "4",
+         //item.borrower,
+         "HL Global Enterprises Limited",
+         //item.agreementDate.substring(0, 10),
+         "TBC",
+         //item.clientDescription,
+         "Escrow",
+         //item.roles,
+         "Escrow Agent",
+         //item.legalCounsel,
+         "TBC",
+         //item.docDescription,
+         "Share Certificate No. 5 of LKNII (499,998 Ordinary Shares)",
+         //item.originalCTC,
+         "",
+         //item.numCopies,
+         "One (1)",
+         //item.receiveDate.substring(0, 10),
+         "17/11/2017",
+         //item.location,
+         "A2",
+         //item.remarks,
+         "",
+         //item.updatePrepareBy,
+         "Muneet Mand",
+         //item.updatePrepareDate.substring(0, 10),
+         "17/11/17",
+         //item.lastCheckedBy,
+         "Satish Srivastava",
+         //item.lastCheckedDate.substring(0, 10)
+         "17/11/2017"
+   	] ).draw( false );
 
 	t.row.add( [
-         item.id,
-         item.borrower,
-         item.agreementDate.substring(0, 10),
-         item.clientDescription,
-         item.roles,
-         item.legalCounsel,
-         item.docDescription,
-         item.originalCTC,
-         item.numCopies,
-         item.receiveDate.substring(0, 10),
-         item.location,
-         item.remarks,
-         item.updatePrepareBy,
-         item.updatePrepareDate.substring(0, 10),
-         item.lastCheckedBy,
-         item.lastCheckedDate.substring(0, 10)
+         //item.id,
+         "5",
+         //item.borrower,
+         "HL Global Enterprises Limited",
+         //item.agreementDate.substring(0, 10),
+         "TBC",
+         //item.clientDescription,
+         "Escrow",
+         //item.roles,
+         "Escrow Agent",
+         //item.legalCounsel,
+         "TBC",
+         //item.docDescription,
+         "Share Certificate No. 8 of LKNII (12,233,000 Ordinary Shares)",
+         //item.originalCTC,
+         "",
+         //item.numCopies,
+         "One (1)",
+         //item.receiveDate.substring(0, 10),
+         "17/11/2017",
+         //item.location,
+         "A2",
+         //item.remarks,
+         "",
+         //item.updatePrepareBy,
+         "Muneet Mand",
+         //item.updatePrepareDate.substring(0, 10),
+         "17/11/17",
+         //item.lastCheckedBy,
+         "Satish Srivastava",
+         //item.lastCheckedDate.substring(0, 10)
+         "17/11/2017"
    	] ).draw( false );
 }
 
   $(function () {
-	$('#match_list').DataTable();
-    $("#position_list").DataTable();
+	$('#position_list').DataTable();
   });
-  
 </script>
 </body>
 </html>
