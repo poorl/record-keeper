@@ -6,10 +6,8 @@ import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.butlerx.RecordStore;
@@ -19,7 +17,6 @@ import com.butlerx.admin.model.RecordRequest;
 import com.butlerx.admin.model.ResponseMessage;
 
 @Component
-@WebServlet(name = "cloudsql", value = "")
 public class RecordApi implements RecordApiDelegate {
 	private static final RecordStore store = new RecordStore();
 	//private static final String DEFAULT_DATE_FORMAT = "dd MMM yyyy hh:mm a";
@@ -28,10 +25,7 @@ public class RecordApi implements RecordApiDelegate {
 	private static final String SQL_CREATE_RECORD = "INSERT INTO records(borrower, agreementDate, clientDescription, "
 			+ "roles, legalCounsel, docDescription, numCopies, receiveDate, location, originalCTC, remarks, updatePrepareBy, "
 			+ "updatePrepareDate, lastCheckedBy, lastCheckedDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	/*
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
-	*/
+	
 	/* (non-Javadoc)
 	 * @see com.butlerx.admin.RecordApiDelegate#confirmRecord(java.lang.String)
 	 */

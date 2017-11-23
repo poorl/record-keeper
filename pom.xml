@@ -24,15 +24,6 @@
 		<java.version>1.8</java.version>
 		<default.package>com.butlerx</default.package>
 		
-		<!--
-		    INSTANCE_CONNECTION_NAME from Cloud Console > SQL > Instance Details > Properties
-		    or `gcloud sql instances describe <instance> | grep connectionName`
-		-->
-		    <INSTANCE_CONNECTION_NAME>composed-task-186614:asia-east1:hackathon-cloudsql</INSTANCE_CONNECTION_NAME>
-		    <user>hackathon</user>
-		    <password>Abcd123$</password>
-		    <database>hackathon</database>
-		    <sqlURL>jdbc:mysql://google/${database}?cloudSqlInstance=${INSTANCE_CONNECTION_NAME}&amp;socketFactory=com.google.cloud.sql.mysql.SocketFactory&amp;user=${user}&amp;password=${password}&amp;useSSL=false</sqlURL>
 	</properties>
 
 	<dependencies>
@@ -94,17 +85,7 @@
 		</dependency>
 		 -->
 		<!-- Driver injected at runtime by the use of <use-google-connector-j> in appengine-web.xml -->
-		<dependency> <!-- Only used locally -->
-		  <groupId>mysql</groupId>
-		  <artifactId>mysql-connector-java</artifactId>
-		  <version>5.1.42</version>  <!-- v5.x.x is for production, v6.x.x EAP X DevAPI -->
-		</dependency>
-		<dependency>
-		  <groupId>com.google.cloud.sql</groupId>
-		  <artifactId>mysql-socket-factory</artifactId> <!-- mysql-socket-factory-connector-j-6 if using 6.x.x -->
-		  <version>1.0.4</version>
-		</dependency>
-
+		
 		<!-- swagger for api document -->
 		<dependency>
 			<groupId>io.swagger</groupId>
