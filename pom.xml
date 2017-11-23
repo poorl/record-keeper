@@ -81,7 +81,8 @@
 		</dependency>
 		
 		<!-- Google Cloud SQL -->
-		<dependency>  <!-- http://dev.mysql.com/doc/connector-j/en/ -->
+		<!-- 
+		<dependency>
 		  <groupId>mysql</groupId>
 		  <artifactId>mysql-connector-java</artifactId>
 		  <version>6.0.5</version>
@@ -89,6 +90,18 @@
 		<dependency>
 		  <groupId>com.google.cloud.sql</groupId>
 		  <artifactId>mysql-socket-factory-connector-j-6</artifactId>
+		  <version>1.0.4</version>
+		</dependency>
+		 -->
+		<!-- Driver injected at runtime by the use of <use-google-connector-j> in appengine-web.xml -->
+		<dependency> <!-- Only used locally -->
+		  <groupId>mysql</groupId>
+		  <artifactId>mysql-connector-java</artifactId>
+		  <version>5.1.42</version>  <!-- v5.x.x is for production, v6.x.x EAP X DevAPI -->
+		</dependency>
+		<dependency>
+		  <groupId>com.google.cloud.sql</groupId>
+		  <artifactId>mysql-socket-factory</artifactId> <!-- mysql-socket-factory-connector-j-6 if using 6.x.x -->
 		  <version>1.0.4</version>
 		</dependency>
 
