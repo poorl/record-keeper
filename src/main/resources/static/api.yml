@@ -70,8 +70,7 @@ paths:
         name: id
         description: "ID of the record for details"
         required: true
-        type: integer
-        format: int64
+        type: string
       responses:
         200:
           description: "Successful operation"
@@ -96,8 +95,7 @@ paths:
         name: id
         description: "ID of the record for details"
         required: true
-        type: integer
-        format: int64
+        type: string
       - in: body
         name: body
         description: Updated details of specified record
@@ -128,8 +126,7 @@ paths:
         name: id
         description: "ID of the record to be deleted"
         required: true
-        type: integer
-        format: int64
+        type: string
       responses:
         200:
           description: "Successful operation"
@@ -155,8 +152,7 @@ paths:
         name: id
         description: "ID of the record to confirm existence"
         required: true
-        type: integer
-        format: int64
+        type: string
       responses:
         200:
           description: "Successful operation"
@@ -220,7 +216,6 @@ definitions:
         type: string
       agreementDate:
         type: string
-        format: date-time
       clientDescription:
         type: string
       roles:
@@ -230,11 +225,9 @@ definitions:
       docDescription:
         type: string
       numCopies:
-        type: integer
-        format: int64
+        type: string
       receiveDate:
         type: string
-        format: date-time
       location:
         type: string
       originalCTC:
@@ -248,13 +241,11 @@ definitions:
       - docDescription
     properties:
       id:
-        type: "integer"
-        format: "int64"
+        type: string
       borrower:
         type: string
       agreementDate:
         type: string
-        format: date-time
       clientDescription:
         type: string
       roles:
@@ -264,11 +255,9 @@ definitions:
       docDescription:
         type: string
       numCopies:
-        type: integer
-        format: int64
+        type: string
       receiveDate:
         type: string
-        format: date-time
       location:
         type: string
       originalCTC:
@@ -279,12 +268,10 @@ definitions:
         type: string
       updatePrepareDate:
         type: string
-        format: date-time
       lastCheckedBy:
         type: string
       lastCheckedDate:
         type: string
-        format: date-time
   ResponseMessage:
     type: "object"
     required:
