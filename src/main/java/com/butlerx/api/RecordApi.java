@@ -1,12 +1,16 @@
 package com.butlerx.api;
 
+import java.io.IOException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Properties;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
 import org.springframework.http.HttpStatus;
@@ -28,7 +32,7 @@ public class RecordApi implements RecordApiDelegate {
 			+ "roles, legalCounsel, docDescription, numCopies, receiveDate, location, originalCTC, remarks, updatePrepareBy, "
 			+ "updatePrepareDate, lastCheckedBy, lastCheckedDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
-	Connection conn;
+	private static Connection conn;
 	/* (non-Javadoc)
 	 * @see com.butlerx.admin.RecordApiDelegate#confirmRecord(java.lang.String)
 	 */
@@ -139,4 +143,23 @@ public class RecordApi implements RecordApiDelegate {
 		// TODO Auto-generated method stub
 		return RecordApiDelegate.super.updateRecord(id, body);
 	}
+	
+	static {
+	    try {
+	      String url = "jdbc:mysql://google/hackathon?cloudSqlInstance=composed-task-186614:asia-east1:hackathon-cloudsql&amp;socketFactory=com.google.cloud.sql.mysql.SocketFactory&amp;user=hackathon&amp;password=Abcd123$&amp;useSSL=false";
+
+	      System.out.println("connecting to: " + url);
+	      try {
+	        Class.forName("com.mysql.jdbc.Driver");
+	        conn = DriverManager.getConnection(url);
+	      } catch (ClassNotFoundException e) {
+	        throw new RuntimeException("Error loading JDBC Driver", e);
+	      } catch (SQLException e) {
+	        throw new RuntimeException("Unable to connect to PostGre", e);
+	      }
+
+	    } finally {
+	      // Nothing really to do here.
+	    }
+	 }
 }
