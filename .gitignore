@@ -1,3 +1,4 @@
 npm-debug.log
 src/main/resources/node_modules/
 /target
+/.apt_generated/

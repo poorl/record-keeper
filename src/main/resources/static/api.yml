@@ -1,0 +1,40 @@
+swagger: '2.0'
+info:
+  description: butler
+  version: 1.0.0
+  title: HSS Hackathon butler API
+  contact:
+    email: host.gbm.hss.it.hk.ss@noexternalmail.hsbc.com
+  license:
+    name: test
+    url: 'test'
+basePath: /
+tags:
+  - name: butler
+    description: Managing API in the butler
+schemes:
+  - http
+  - https
+paths:
+  /api/test:
+    get:
+      tags:
+        - butler
+      summary: Get AOB points donated
+      description: 'Get AOB points donated'
+      operationId: getAOBpts
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: string
+        '400':
+          description: Bad Request. Invalid or missing parameters
+        '401':
+          description: Unauthorized access
+        '403':
+          description: Forbidden due to processing error. Please refer to the error code
+        '500':
+          description: Error processing the API. Please check the individual error code and contact support
