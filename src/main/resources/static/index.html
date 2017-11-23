@@ -72,12 +72,12 @@
                 <thead>
                 <tr>
                   <th>ID</th>
+                  <th>Description of documents</th>
                   <th>Borrower</th>
                   <th>Agreement date</th>
                   <th>Client description</th>
                   <th>Roles</th>
                   <th>Legal counsel</th>
-                  <th>Description of documents</th>
                   <th>Original / CTC</th>
                   <th>No. of copies</th>
                   <th>Doc receipt date</th>
@@ -176,12 +176,12 @@ function addRowPositionItem(item) {
 
 	t.row.add( [
          item.id,
+         item.docDescription,
          item.borrower,
          item.agreementDate.substring(0, 10),
          item.clientDescription,
          item.roles,
          item.legalCounsel,
-         item.docDescription,
          item.originalCTC,
          item.numCopies,
          item.receiveDate.substring(0, 10),
