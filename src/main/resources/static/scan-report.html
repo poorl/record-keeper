@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Scan summary</title>
+  <title>CTLA Singapore Client Portal</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -19,6 +19,10 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="./dist/css/skins/_all-skins.min.css">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="./plugins/daterangepicker/daterangepicker.css">
+  <!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="./plugins/datepicker/datepicker3.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,35 +30,235 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-  <!-- jQuery 2.2.3 -->
-  <script src="./plugins/jQuery/jquery-2.2.3.min.js"></script>
-  <!-- Bootstrap 3.3.6 -->
-  <script src="./bootstrap/js/bootstrap.min.js"></script>
-  <!-- ChartJS 1.0.1 -->
-  <script src="./plugins/chartjs/Chart.min.js"></script>
-  <!-- DataTables -->
-  <script src="./plugins/datatables/jquery.dataTables.min.js"></script>
-  <script src="./plugins/datatables/dataTables.bootstrap.min.js"></script>
-  <!-- SlimScroll -->
-  <script src="./plugins/slimScroll/jquery.slimscroll.min.js"></script>
-  <!-- FastClick -->
-  <script src="./plugins/fastclick/fastclick.js"></script>
-  <!-- AdminLTE App -->
-  <script src="./dist/js/app.min.js"></script>
-  <!-- AdminLTE for demo purposes -->
-  <script src="./dist/js/demo.js"></script>
-  <!-- page script -->
 </head>
-<body>
-<div id="content" width="100%">
-  <div id="qrCode" class="wrapper text-center">
-    <span class="h2">You can start scanning the documents in</span>
-    <br>
-    <span class="h3 text-red">location A</span>
+<body class="hold-transition skin-red sidebar-mini">
+<div id="header_section" class="wrapper">
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper" style="margin-left: 0px">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        CTLA Singapore - Record Keeper
+        <small></small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="./index.html"><i class="fa fa-dashboard"></i> Business Solution</a></li>
+        <li class="active">Scanning Result</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+
+          <div id="pqtPositionBox" class="box">
+
+          	<div class="row">
+		        <div class="col-xs-12">
+		          <h2 class="page-header">
+		            <span class="badge bg-red" style="margin-left: 10px"><div id="missCnt"></div></span><font color="red"> Missing Documents</font>
+		          </h2>
+		        </div>
+		        <!-- /.col -->
+		      </div>
+
+			
+			<div class="box-body">
+              <table id="position_list" class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Borrower</th>
+                  <th>Agreement date</th>
+                  <th>Client description</th>
+                  <th>Roles</th>
+                  <th>Legal counsel</th>
+                  <th>Description of documents</th>
+                  <th>Original / CTC</th>
+                  <th>No. of copies</th>
+                  <th>Doc receipt date</th>
+                  <th>Location</th>
+                  <th>Remarks</th>
+                  <th>Updated / prepared by</th>
+                  <th>Prepare / update date</th>
+                  <th>Checked by</th>
+                  <th>Date checked</th>
+                </tr>
+                </thead>
+                <tbody>                
+                </tbody>
+              </table>
+            </div>
+            
+            <div class="row">
+		        <div class="col-xs-12">
+		          <h2 class="page-header">
+		            <span class="badge bg-blue" style="margin-left: 10px"><div id="matchCnt"></div></span><font color="blue"> Matched Documents</font>
+		          </h2>
+		        </div>
+		        <!-- /.col -->
+		      </div>
+
+			
+			<div class="box-body">
+              <table id="match_list" class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Borrower</th>
+                  <th>Agreement date</th>
+                  <th>Client description</th>
+                  <th>Roles</th>
+                  <th>Legal counsel</th>
+                  <th>Description of documents</th>
+                  <th>Original / CTC</th>
+                  <th>No. of copies</th>
+                  <th>Doc receipt date</th>
+                  <th>Location</th>
+                  <th>Remarks</th>
+                  <th>Updated / prepared by</th>
+                  <th>Prepare / update date</th>
+                  <th>Checked by</th>
+                  <th>Date checked</th>
+                </tr>
+                </thead>
+                <tbody>                
+                </tbody>
+              </table>
+            </div>
+            
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
   </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer" style="margin-left: 0px">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 1.0.0
+    </div>
+    <strong>HSS IT Shared Services</strong> All rights
+    reserved.
+  </footer>
+
 </div>
+<!-- ./wrapper -->
 
+<!-- jQuery 2.2.3 -->
+<script src="./plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="./bootstrap/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="./plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="./plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="./plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="./plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="./dist/js/app.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="./dist/js/demo.js"></script>
+<!-- bootstrap datepicker -->
+<script src="./plugins/datepicker/bootstrap-datepicker.js"></script>
+<!-- page script -->
+<script>
+
+var loadingOverlay = $('<div class="overlay"><div class="fa fa-refresh fa-spin"></div></div>');
+
+function search() {
+
+  $('#pqtPositionBox').append(loadingOverlay);
+
+  $.ajax({
+      //url: "http://localhost:8180/PQT/position",
+      //url: "https://pqt-api-service.cf.wgdc-drn-01.cloud.uk.hsbc/PQT/position",
+      url: "doc-record-list.json",
+  	  success: function (data) {
+          console.log("SUCCESS: ", data);
+          
+          $('#position_list').DataTable().clear().draw();
+          $('#missCnt').text(data.length);
+          
+          $.each(data, function(i, item) {
+            addRowPositionItem(item, $('#position_list').DataTable());
+          });
+          $('#pqtPositionBox').find(loadingOverlay).remove();
+          
+      },
+      error: function (e) {
+          $('#pqtPositionBox').find(loadingOverlay).remove();
+          console.log("ERROR: ", e);
+      }
+  });
+}
+
+function searchMatch() {
+
+	  $('#pqtPositionBox').append(loadingOverlay);
+
+	  $.ajax({
+	      //url: "http://localhost:8180/PQT/position",
+	      //url: "https://pqt-api-service.cf.wgdc-drn-01.cloud.uk.hsbc/PQT/position",
+	      url: "doc-record-list.json",
+	  	  success: function (data) {
+	          console.log("SUCCESS: ", data);
+	          
+	          $('#match_list').DataTable().clear().draw();
+	          $('#matchCnt').text(data.length);
+	          
+	          $.each(data, function(i, item) {
+	            addRowPositionItem(item, $('#match_list').DataTable());
+	          });
+	          $('#pqtPositionBox').find(loadingOverlay).remove();
+	          
+	      },
+	      error: function (e) {
+	          $('#pqtPositionBox').find(loadingOverlay).remove();
+	          console.log("ERROR: ", e);
+	      }
+	  });
+	}
+
+$(document).ready(function() {
+  searchMatch();
+  search();
+});
+
+function addRowPositionItem(item, t) {
+
+	t.row.add( [
+         item.id,
+         item.borrower,
+         item.agreementDate.substring(0, 10),
+         item.clientDescription,
+         item.roles,
+         item.legalCounsel,
+         item.docDescription,
+         item.originalCTC,
+         item.numCopies,
+         item.receiveDate.substring(0, 10),
+         item.location,
+         item.remarks,
+         item.updatePrepareBy,
+         item.updatePrepareDate.substring(0, 10),
+         item.lastCheckedBy,
+         item.lastCheckedDate.substring(0, 10)
+   	] ).draw( false );
+}
+
+  $(function () {
+	$('#match_list').DataTable();
+    $("#position_list").DataTable();
+  });
+  
 </script>
-
 </body>
 </html>
