@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>CTLA Singapore Client Portal</title>
+  <title>CTLA Singapore Record Keeper</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -180,7 +180,7 @@ function search() {
   $.ajax({
       //url: "http://localhost:8180/PQT/position",
       //url: "https://pqt-api-service.cf.wgdc-drn-01.cloud.uk.hsbc/PQT/position",
-      url: "doc-record-list.json",
+      url: "./data/doc-record-list.json",
   	  success: function (data) {
           console.log("SUCCESS: ", data);
           
@@ -207,7 +207,7 @@ function searchMatch() {
 	  $.ajax({
 	      //url: "http://localhost:8180/PQT/position",
 	      //url: "https://pqt-api-service.cf.wgdc-drn-01.cloud.uk.hsbc/PQT/position",
-	      url: "doc-record-list.json",
+	      url: "./data/doc-record-list.json",
 	  	  success: function (data) {
 	          console.log("SUCCESS: ", data);
 	          

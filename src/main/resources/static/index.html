@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>CTLA Singapore Client Portal</title>
+  <title>CTLA Singapore Record Keeper</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -142,9 +142,8 @@ function search() {
   $('#pqtPositionBox').append(loadingOverlay);
 
   $.ajax({
-      //url: "http://localhost:8180/PQT/position",
-      //url: "https://pqt-api-service.cf.wgdc-drn-01.cloud.uk.hsbc/PQT/position",
-      url: "doc-record-list.json",
+
+      url: "./data/doc-record-list.json",
   	  success: function (data) {
           console.log("SUCCESS: ", data);
           
@@ -163,34 +162,7 @@ function search() {
   });
 }
 
-function loadEntitlement() {
-  $('#pqtPositionBox').append(loadingOverlay);
-
-  $.ajax({
-      //url: "http://localhost:8180/ENT/entitlement?cid=GBHBEUCPUATGC2&thirdPartyId=100a48f079f711e4b847000011&serviceCode=SE&subServiceCode=SF",
-      //url: "https://pqt-api-service.cf.wgdc-drn-01.cloud.uk.hsbc/ENT/entitlement?cid=GBHBEUCPUATGC2&thirdPartyId=100a48f079f711e4b847000011&serviceCode=SE&subServiceCode=SF",
-      url: "./data/entitlement.json",
-  success: function (data) {
-          console.log("SUCCESS: ", data);
-          
-          $.each(data.EntitlementResponse, function(i, item) {
-            $('#account').append($("<option/>", {
-                value: item.AcctNo,
-                text: item.AcctNo
-            }));
-          });
-          $('#pqtPositionBox').find(loadingOverlay).remove();
-          
-      },
-      error: function (e) {
-          $('#pqtPositionBox').find(loadingOverlay).remove();
-          console.log("ERROR: ", e);
-      }
-  });
-}
-
 $(document).ready(function() {
-  //loadEntitlement();
   search();
 });
 
@@ -219,13 +191,6 @@ function addRowPositionItem(item) {
 
   $(function () {
   
-	//$.fn.datepicker.defaults.format = "dd/mm/yyyy";
-	//$('#dateFrom').datepicker('update', '03/07/2017');
-
-    //$('#dateFrom').datepicker({
-    //  autoclose: true,
-    //});
-	
     $("#position_list").DataTable();
   });
   
