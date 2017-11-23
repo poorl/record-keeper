@@ -212,8 +212,8 @@
     $('#content').append(loadingOverlay1);
 
     $.ajax({
-      //url: "/record/"+getParameterByName("id"),
-      url: "./data/doc-record.json",
+      url: "/record/"+getParameterByName("id"),
+      //url: "./data/doc-record.json",
       success: function (data) {
         console.log("SUCCESS: ", data);
 

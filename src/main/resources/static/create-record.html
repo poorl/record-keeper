@@ -196,10 +196,10 @@
     }
 
     $.ajax({
-      //type: 'POST',
+      type: 'POST',
       data: JSON.stringify(jsonDataString),
-      //url: "/record",
-      url: "./data/doc-record.json",
+      url: "/record",
+      //url: "./data/doc-record.json",
       success: function (data) {
         console.log("SUCCESS: ", data);
 
