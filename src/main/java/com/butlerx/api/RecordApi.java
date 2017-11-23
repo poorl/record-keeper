@@ -22,7 +22,8 @@ import com.butlerx.admin.model.ResponseMessage;
 @WebServlet(name = "cloudsql", value = "")
 public class RecordApi implements RecordApiDelegate {
 	private static final RecordStore store = new RecordStore();
-	private static final String DEFAULT_DATE_FORMAT = "dd MMM yyyy hh:mm a";
+	//private static final String DEFAULT_DATE_FORMAT = "dd MMM yyyy hh:mm a";
+	private static final String DEFAULT_DATE_FORMAT = "dd/MM/yyyy";
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT);
 	private static final String SQL_CREATE_RECORD = "INSERT INTO records(borrower, agreementDate, clientDescription, "
 			+ "roles, legalCounsel, docDescription, numCopies, receiveDate, location, originalCTC, remarks, updatePrepareBy, "
