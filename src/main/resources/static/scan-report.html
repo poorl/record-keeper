@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Generate QR Label</title>
+  <title>Scan summary</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -46,39 +46,13 @@
   <!-- page script -->
 </head>
 <body>
-<div id="content">
-  <div id="qrCode" class="wrapper" style="visibility:hidden">
-    <img id="qrCodeUrl" src="" />
-    <span onClick="this.innerText='';window.print();this.innerText='Print'" style="cursor:pointer; text-align:center">Print</span>
+<div id="content" width="100%">
+  <div id="qrCode" class="wrapper text-center">
+    <span class="h2">You can start scanning the documents in</span>
+    <br>
+    <span class="h3 text-red">location A</span>
   </div>
 </div>
-<script>
-  $(document).ready(function() {
-    loadQRCode();
-  });
-
-  var loadingOverlay1 = $('<div class="overlay"><div class="fa fa-refresh fa-spin"></div></div>');
-
-
-  function loadQRCode() {
-    $('#content').append(loadingOverlay1);
-
-    $.ajax({
-      // url: "data url",
-      url: "./data/qr.code.id.json",
-      success: function (data) {
-        console.log("SUCCESS: ", data);
-
-        $('#qrCodeUrl').attr("src", "https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl=https://composed-task-186614.appspot.com/load-record.html?id="+data.id);
-
-        $('#qrCode').attr("style","visibility:show");
-
-        $('#content').find(loadingOverlay1).remove();
-
-      }
-    });
-  }
-
 
 </script>
 
