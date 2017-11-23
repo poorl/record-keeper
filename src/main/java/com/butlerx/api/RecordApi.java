@@ -3,12 +3,14 @@ package com.butlerx.api;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 
 import com.butlerx.admin.RecordApiDelegate;
 import com.butlerx.admin.model.RecordDetails;
 import com.butlerx.admin.model.RecordRequest;
 import com.butlerx.admin.model.ResponseMessage;
 
+@Component
 public class RecordApi implements RecordApiDelegate {
 
 	@Override
