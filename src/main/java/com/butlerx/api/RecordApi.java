@@ -1,20 +1,21 @@
 package com.butlerx.api;
 
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Properties;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import com.butlerx.admin.RecordApiDelegate;
@@ -32,7 +33,8 @@ public class RecordApi implements RecordApiDelegate {
 			+ "roles, legalCounsel, docDescription, numCopies, receiveDate, location, originalCTC, remarks, updatePrepareBy, "
 			+ "updatePrepareDate, lastCheckedBy, lastCheckedDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
-	private static Connection conn;
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 	/* (non-Javadoc)
 	 * @see com.butlerx.admin.RecordApiDelegate#confirmRecord(java.lang.String)
 	 */
@@ -49,6 +51,8 @@ public class RecordApi implements RecordApiDelegate {
 	public ResponseEntity<RecordDetails> createRecord(RecordRequest body) {
 		String nowString = OffsetDateTime.now().format(FORMATTER);
 		RecordDetails details = new RecordDetails();
+		KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+		
 		details.setAgreementDate(body.getAgreementDate());
 		details.setBorrower(body.getBorrower());
 		details.setDocDescription(body.getDocDescription());
@@ -64,6 +68,30 @@ public class RecordApi implements RecordApiDelegate {
 		details.setRoles(body.getRoles());
 		details.setUpdatePrepareBy("Record Creator");
 		details.setUpdatePrepareDate(nowString);
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
+				PreparedStatement ps = conn.prepareStatement(SQL_CREATE_RECORD, new String[] {"id"});
+				ps.setString(1, details.getBorrower());
+				ps.setString(2, details.getAgreementDate());
+				ps.setString(3, details.getClientDescription());
+				ps.setString(4, details.getRoles());
+				ps.setString(5, details.getLegalCounsel());
+				ps.setString(6, details.getDocDescription());
+				ps.setString(7, details.getNumCopies());
+				ps.setString(8, details.getReceiveDate());
+				ps.setString(9, details.getLocation());
+				ps.setString(10, details.getOriginalCTC());
+				ps.setString(11, details.getRemarks());
+				ps.setString(12, details.getUpdatePrepareBy());
+				ps.setString(13, details.getUpdatePrepareDate());
+				ps.setString(14, details.getLastCheckedBy());
+				ps.setString(15, details.getLastCheckedDate());
+				return ps;
+			}
+		}, generatedKeyHolder);
+		/*
 		try (PreparedStatement stateCreateRecord = conn.prepareStatement(SQL_CREATE_RECORD)) {
 			stateCreateRecord.setString(1, details.getBorrower());
 			stateCreateRecord.setString(2, details.getAgreementDate());
@@ -86,6 +114,11 @@ public class RecordApi implements RecordApiDelegate {
 		} catch (SQLException exception) {
 			System.out.println("SQL error");
 			System.out.println(exception);
+		}*/
+		if (generatedKeyHolder.getKey() != null) {
+			details.setId(generatedKeyHolder.getKey().toString());
+		} else {
+			details = null;
 		}
 		return new ResponseEntity<RecordDetails>(details, HttpStatus.OK);
 	}
@@ -143,23 +176,4 @@ public class RecordApi implements RecordApiDelegate {
 		// TODO Auto-generated method stub
 		return RecordApiDelegate.super.updateRecord(id, body);
 	}
-	
-	static {
-	    try {
-	      String url = "jdbc:mysql://google/hackathon?cloudSqlInstance=composed-task-186614:asia-east1:hackathon-cloudsql&socketFactory=com.google.cloud.sql.mysql.SocketFactory&user=hackathon&password=Abcd123$&useSSL=false";
-
-	      System.out.println("connecting to: " + url);
-	      try {
-	        Class.forName("com.mysql.jdbc.Driver");
-	        conn = DriverManager.getConnection(url);
-	      } catch (ClassNotFoundException e) {
-	        throw new RuntimeException("Error loading JDBC Driver", e);
-	      } catch (SQLException e) {
-	        throw new RuntimeException("Unable to connect to PostGre", e);
-	      }
-
-	    } finally {
-	      // Nothing really to do here.
-	    }
-	 }
 }
