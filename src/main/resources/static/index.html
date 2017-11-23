@@ -72,12 +72,12 @@
                 <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Description of documents</th>
                   <th>Borrower</th>
                   <th>Agreement date</th>
                   <th>Client description</th>
                   <th>Roles</th>
                   <th>Legal counsel</th>
+                  <th>Description of documents</th>
                   <th>Original / CTC</th>
                   <th>No. of copies</th>
                   <th>Doc receipt date</th>
@@ -143,8 +143,7 @@ function search() {
 
   $.ajax({
 
-      url: "/record/list",
-      //url: "./data/doc-record-list.json",
+      url: "./data/doc-record-list.json",
   	  success: function (data) {
           console.log("SUCCESS: ", data);
           
@@ -168,7 +167,7 @@ $(document).ready(function() {
 });
 
 function create() {
-  windows.location = "/create-record.html";
+  window.location = "./create-record.html";
 }
 
 function addRowPositionItem(item) {
@@ -176,12 +175,12 @@ function addRowPositionItem(item) {
 
 	t.row.add( [
          item.id,
-         item.docDescription,
          item.borrower,
          item.agreementDate.substring(0, 10),
          item.clientDescription,
          item.roles,
          item.legalCounsel,
+         item.docDescription,
          item.originalCTC,
          item.numCopies,
          item.receiveDate.substring(0, 10),
