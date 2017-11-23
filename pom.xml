@@ -71,21 +71,6 @@
 			<version>1.9</version>
 		</dependency>
 		
-		<!-- Google Cloud SQL -->
-		<!-- 
-		<dependency>
-		  <groupId>mysql</groupId>
-		  <artifactId>mysql-connector-java</artifactId>
-		  <version>6.0.5</version>
-		</dependency>
-		<dependency>
-		  <groupId>com.google.cloud.sql</groupId>
-		  <artifactId>mysql-socket-factory-connector-j-6</artifactId>
-		  <version>1.0.4</version>
-		</dependency>
-		 -->
-		<!-- Driver injected at runtime by the use of <use-google-connector-j> in appengine-web.xml -->
-		
 		<!-- swagger for api document -->
 		<dependency>
 			<groupId>io.swagger</groupId>
