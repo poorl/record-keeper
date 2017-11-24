@@ -26,6 +26,8 @@ public class RecordApi implements RecordApiDelegate {
 			+ "roles, legalCounsel, docDescription, numCopies, receiveDate, location, originalCTC, remarks, updatePrepareBy, "
 			+ "updatePrepareDate, lastCheckedBy, lastCheckedDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
+	private static final String SQL_LIST_RECORD = "SELECT ID FROM records";
+	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
@@ -105,7 +107,8 @@ public class RecordApi implements RecordApiDelegate {
 	 */
 	@Override
 	public ResponseEntity<List<RecordDetails>> listRecord() {
-		return new ResponseEntity<List<RecordDetails>>(RecordStore.recordList, HttpStatus.OK);
+		List<RecordDetails> result = jdbcTemplate.query(SQL_LIST_RECORD, new RecordDetailsRowMapper());
+		return new ResponseEntity<List<RecordDetails>>(result, HttpStatus.OK);
 	}
 
 	/* (non-Javadoc)
