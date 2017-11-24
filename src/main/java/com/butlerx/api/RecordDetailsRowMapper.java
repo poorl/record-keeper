@@ -15,7 +15,7 @@ public class RecordDetailsRowMapper implements RowMapper<RecordDetails> {
 	@Override
 	public RecordDetails mapRow(ResultSet rs, int rowIndex) throws SQLException {
 		RecordDetails details = new RecordDetails();
-		details.setId(rs.getString(0));
+		details.setId(rs.getString(1));
 		return details;
 	}
 	
