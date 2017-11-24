@@ -143,7 +143,8 @@ function search() {
 
   $.ajax({
 
-      url: "./data/doc-record-list.json",
+      //url: "./data/doc-record-list.json",
+      url: "/record/list",
   	  success: function (data) {
           console.log("SUCCESS: ", data);
           
