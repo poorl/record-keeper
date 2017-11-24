@@ -200,6 +200,7 @@
       data: JSON.stringify(jsonDataString),
       url: "/record",
       //url: "./data/doc-record.json",
+	  contentType: "application/json",
       success: function (data) {
         console.log("SUCCESS: ", data);
 
